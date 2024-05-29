@@ -1,22 +1,24 @@
 class Caminante {
-  constructor(x, y) {
+  constructor(x, y, dir) {
     this.x = x;
     this.y = y;
     this.t = 15;
     this.vel = 2;
-    this.dir = 0;
+    this.dir = dir;
     push();
     colorMode(HSB, 360, 100, 100, 100);
     this.pincelada = loadImage("data/pincelada.png");
-    this.elColor = color(random(210, 270), 100, 100);
+    this.elColor = color(random(110, 270), 100, 100, 30);
     pop();
   }
 
   dibujar() {
     push();
-    translate(this.x, this.y);
-    tint(this.elColor, 127);
-    image(this.pincelada, 0, 0, 30, 30);
+    tint(this.elColor);
+    // noStroke();
+    // fill(this.elColor);
+    // ellipse(this.x, this.y, this.t, this.t);
+    image(this.pincelada, this.x, this.y, 15, 15);
     pop();
   }
 

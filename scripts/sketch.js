@@ -1,11 +1,21 @@
 let c = [];
-let cantidad = [...Array(10).keys()];
+let cantidad = [...Array(40).keys()];
 let controlVoz;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(1080, 1920);
   cantidad.forEach((element) => {
-    c.push(new Caminante(windowWidth / 2, random(0, windowHeight)));
+    if (random(0, 100) > 50) {
+      c.push(new Caminante(0, random(0, height), random(-30, 30)));
+    } else {
+      c.push(new Caminante(width, random(0, height), random(150, 210)));
+    }
+
+    if (random(0, 100) > 50) {
+      c.push(new Caminante(random(0, width), 0, random(60, 120)));
+    } else {
+      c.push(new Caminante(random(0, width), height, random(240, 300)));
+    }
   });
 
   controlVoz = new ControlVoz();
@@ -16,26 +26,30 @@ function setup() {
 
 function draw() {
   push();
-  fill("#222222");
+  fill("#22222222");
   noStroke();
-  rect(0, 0, 200, 100);
+  rect(0, 0, 300, 100);
   pop();
+
   if (controlVoz.haySonido()) {
     c.forEach((caminante) => {
-      let variacion = mouseY;
-      variacion = map(variacion, 0, windowWidth, 0.5, 3);
-      caminante.mover(variacion);
+      caminante.mover(map(controlVoz.amplitud(), 0, windowWidth, 0.1, 1));
       caminante.dibujar();
     });
-    push();
-    textSize(20);
-    fill("RED");
-    text("Haciendo click", 20, 20);
-    text("mouseY: " + mouseY, 20, 50);
-    pop();
+
+    debug();
   }
 }
 
 function toRad(degree) {
   return degree * (Math.PI / 180);
+}
+
+function debug() {
+  push();
+  textSize(20);
+  fill("RED");
+  text("Haciendo click", 20, 20);
+  text("mouseY (amplitud): " + mouseY, 20, 50);
+  pop();
 }

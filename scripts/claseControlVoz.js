@@ -4,4 +4,8 @@ class ControlVoz {
   haySonido() {
     return mouseIsPressed;
   }
+
+  amplitud() {
+    return mouseY;
+  }
 }
