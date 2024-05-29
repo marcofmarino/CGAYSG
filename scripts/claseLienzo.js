@@ -6,33 +6,23 @@ class Lienzo {
     this.h = 0;
   }
 
-  setup() {
-    createCanvas(windowWidth, windowHeight);
-    cantidad.forEach((element) => {
-      c.push(
-        new Caminante(
-          this.x + this.w / 2,
-          random(this.y, this.y + this.h),
-          this instanceof RectangularLienzo,
-        ),
-      );
-    });
-    background("#222222");
-  }
+  setup() {}
 
-  dibujar() {
-    push();
-    noFill();
-    stroke(255);
-    rect(this.x, this.y, this.w, this.h);
-    pop();
-  }
+  // dibujar() {
+  //   push();
+  //   noFill();
+  //   stroke(255);
+  //   rect(this.x, this.y, this.w, this.h);
+  //   pop();
+  // }
 
   estaDentro(x, y) {
     return (
       x > this.x && x < this.x + this.w && y > this.y && y < this.y + this.h
     );
   }
+
+  esRectangular() {}
 }
 
 class RectangularLienzo extends Lienzo {
@@ -42,6 +32,12 @@ class RectangularLienzo extends Lienzo {
     this.x = (windowWidth - this.w) / 2;
     this.y = margen;
     super.setup();
+    createCanvas(this.w, this.h);
+    background("#222222");
+  }
+
+  esRectangular() {
+    return true;
   }
 }
 
@@ -52,5 +48,11 @@ class CuadradoLienzo extends Lienzo {
     this.x = (windowWidth - this.w) / 2;
     this.y = margen;
     super.setup();
+    createCanvas(this.w, this.h);
+    background("#222222");
+  }
+
+  esRectangular() {
+    return false;
   }
 }
