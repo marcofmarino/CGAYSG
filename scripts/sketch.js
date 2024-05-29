@@ -12,23 +12,16 @@ function setup() {
 }
 
 function draw() {
-  //this.rectangulo.dibujar(100,100);
-  // push();
-  // noStroke();
-  // fill(0, 0, 10, 5);
-  // rect(0, 0, width, height);
-  // pop();
-
-  c.forEach((caminante) => {
-    caminante.mover(9);
-    // caminante.actualizar(9);
-    caminante.dibujar();
-  });
+  if (mouseIsPressed) {
+    c.forEach((caminante) => {
+      let variacion = mouseY;
+      variacion = map(variacion, 0, windowWidth, 0.5, 3);
+      caminante.mover(variacion);
+      caminante.dibujar();
+    });
+  }
 }
 
 function toRad(degree) {
   return degree * (Math.PI / 180);
 }
-// function keyPressed() {////
-//   save("p5shot.png");/////// <--- (ESTAS LINEAS DE CODIGO NO FORMAN PARTE DEL TRABAJO ORIGINAL)
-// }////

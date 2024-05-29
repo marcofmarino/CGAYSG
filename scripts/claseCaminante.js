@@ -20,8 +20,8 @@ class Caminante {
     pop();
   }
 
-  mover() {
-    this.dir += random(-15, 15);
+  mover(variacion) {
+    this.dir += random(-15 * variacion, 15 * variacion);
     this.x += this.vel * Math.cos(toRad(this.dir));
     this.y += this.vel * Math.sin(toRad(this.dir));
   }
