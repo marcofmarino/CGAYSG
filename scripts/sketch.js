@@ -15,6 +15,11 @@ function setup() {
 }
 
 function draw() {
+  push();
+  fill("#222222");
+  noStroke();
+  rect(0, 0, 200, 100);
+  pop();
   if (controlVoz.haySonido()) {
     c.forEach((caminante) => {
       let variacion = mouseY;
@@ -22,6 +27,12 @@ function draw() {
       caminante.mover(variacion);
       caminante.dibujar();
     });
+    push();
+    textSize(20);
+    fill("RED");
+    text("Haciendo click", 20, 20);
+    text("mouseY: " + mouseY, 20, 50);
+    pop();
   }
 }
 
