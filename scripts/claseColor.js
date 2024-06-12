@@ -7,12 +7,12 @@ class Color {
     //   : color(random(0, 60), 100, 100, 30);
 
     this.colores = [
-      color(175, 89, 66, 20),
-      color(162, 52, 33, 20),
-      color(14, 45, 22, 20),
-      color(360, 88, 67, 20),
-      color(11, 72, 74, 20),
-      color(47, 80, 85, 20),
+      color(175, 89, 66, 100),
+      color(162, 52, 33, 100),
+      color(14, 45, 22, 100),
+      color(360, 88, 67, 100),
+      color(11, 72, 74, 100),
+      color(47, 80, 85, 100),
     ];
 
     if (esRectangular) {

@@ -4,10 +4,12 @@ class Capa {
     this.cantidad = [...Array(cantidad).keys()];
     this.t = t_;
     this.caminantes = [];
-    this.capa = createGraphics(width, height);
+    this.capa;
   }
 
   crearCaminantes(lienzo) {
+    this.capa = createGraphics(width, height);
+
     this.cantidad.forEach((element) => {
       let colorCaminante = new Color(this.esRectangular);
 
@@ -75,21 +77,20 @@ class CapaFija extends Capa {
       caminante.dibujar();
       caminante.mover(this.variacion);
     });
-    image(this.capa, 0, 0, width, height);
+    image(this.capa, -20, -20, width + 40, height + 40);
   }
 }
 
 class CapaVariable extends Capa {
-  constructor(cantidad, esRectangular, t_, controlVoz) {
+  constructor(cantidad, esRectangular, t_) {
     super(cantidad, esRectangular, t_);
-    this.controlVoz = controlVoz;
   }
 
   actualizarCaminantes() {
-    if (this.controlVoz.haySonido()) {
+    if (amp > 0.2) {
       this.caminantes.forEach((caminante) => {
         caminante.dibujar();
-        caminante.mover(map(controlVoz.amplitud(), 0, windowWidth, 0.1, 1));
+        caminante.mover(map(frec, 0, 1, 0.2, 1));
       });
     }
     image(this.capa, 0, 0);

@@ -3,7 +3,7 @@ class Caminante {
     this.x = x;
     this.y = y;
     this.t = t_;
-    this.vel = 2;
+    this.vel = 3;
     this.dir = dir;
     this.elColor = color_;
     this.pincelada = loadImage("data/pincelada.png");
@@ -12,6 +12,7 @@ class Caminante {
 
   dibujar() {
     push();
+    this.capa.imageMode(CENTER);
     this.capa.tint(this.elColor);
     this.capa.image(this.pincelada, this.x, this.y, this.t, this.t);
     pop();

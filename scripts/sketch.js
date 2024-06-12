@@ -1,7 +1,25 @@
+// SONIDO
+let AMP_MIN = 0.01;
+let AMP_MAX = 0.3;
+
+let FREC_MIN = 125;
+let FREC_MAX = 270;
+
+// AUDIO
+let mic;
+let amp;
+let frec;
+
+let gestorAmp;
+let gestorFrec;
+
+let audioContext;
+const pitchModel =
+  "https://cdn.jsdelivr.net/gh/ml5js/ml5-data-and-models/models/pitch-detection/crepe/";
+
 let c = [];
-let cantidad = 50;
+let cantidad = 10;
 let lienzo;
-let controlVoz;
 let margen = 10;
 let capas = [];
 
@@ -13,11 +31,18 @@ function setup() {
   }
   lienzo.setup();
 
-  controlVoz = new ControlVoz();
+  audioContext = getAudioContext();
+  mic = new p5.AudioIn();
+  mic.start(startPitch);
+
+  userStartAudio();
+
+  gestorAmp = new GestorSenial(AMP_MIN, AMP_MAX);
+  gestorFrec = new GestorSenial(FREC_MIN, FREC_MAX);
 
   capas.push(new CapaFija(10, lienzo.esRectangular(), 15, 0.1));
-  capas.push(new CapaVariable(cantidad, lienzo.esRectangular(), 5, controlVoz));
-  capas.push(new CapaFija(5, lienzo.esRectangular(), 2, 0.4));
+  capas.push(new CapaVariable(cantidad, lienzo.esRectangular(), 5));
+  capas.push(new CapaFija(20, lienzo.esRectangular(), 2, 0.4));
 
   capas.forEach((capa) => {
     capa.crearCaminantes();
@@ -30,6 +55,9 @@ function setup() {
 }
 
 function draw() {
+  gestorAmp.actualizar(mic.getLevel());
+  amp = gestorAmp.filtrada;
+
   capas.forEach((capa) => {
     capa.actualizarCaminantes();
   });
@@ -38,21 +66,27 @@ function draw() {
   noStroke();
   rect(0, 0, 300, 100);
   pop();
-
-  if (controlVoz.haySonido()) {
-    debug();
-  }
 }
 
+// ##################### FUNCIONES ######################
 function toRad(degree) {
   return degree * (Math.PI / 180);
 }
+function startPitch() {
+  pitch = ml5.pitchDetection(pitchModel, audioContext, mic.stream, modelLoaded);
+}
 
-function debug() {
-  push();
-  textSize(20);
-  fill("RED");
-  text("Haciendo click", 20, 20);
-  text("mouseY (amplitud): " + mouseY, 20, 50);
-  pop();
+function modelLoaded() {
+  getPitch();
+}
+
+function getPitch() {
+  pitch.getPitch(function (err, frequency) {
+    if (frequency) {
+      gestorFrec.actualizar(frequency);
+      frec = gestorFrec.filtrada;
+    } else {
+    }
+    getPitch();
+  });
 }
