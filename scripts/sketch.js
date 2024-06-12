@@ -23,6 +23,7 @@ let lienzo;
 let margen = 10;
 let capas = [];
 let config;
+let fondo;
 
 function setup() {
   userStartAudio();
@@ -83,11 +84,12 @@ function setup() {
 
   push();
   colorMode(HSB, 360, 100, 100, 100);
-  background(color(191, 79, 73));
+  fondo = loadImage("./data/" + config["fondo"]);
   pop();
 }
 
 function draw() {
+  image(fondo, 0, 0, width, height);
   gestorAmp.actualizar(mic.getLevel());
   amp = gestorAmp.filtrada;
 
