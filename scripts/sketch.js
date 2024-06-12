@@ -17,13 +17,20 @@ let audioContext;
 const pitchModel =
   "https://cdn.jsdelivr.net/gh/ml5js/ml5-data-and-models/models/pitch-detection/crepe/";
 
-// let c = [];
-// let cantidad = 15;
+let classifier;
+const options = { probabilityThreshold: 0.9 };
+let label;
+let soundModel = "https://teachablemachine.withgoogle.com/models/qxIkimWln/";
+
 let lienzo;
 let margen = 10;
 let capas = [];
 let config;
 let fondo;
+
+function preload() {
+  classifier = ml5.soundClassifier(soundModel + "model.json", options);
+}
 
 function setup() {
   userStartAudio();
@@ -46,6 +53,7 @@ function setup() {
   gestorAmp = new GestorSenial(AMP_MIN, AMP_MAX);
   gestorFrec = new GestorSenial(FREC_MIN, FREC_MAX);
 
+  classifier.classify(gotResult);
   // #################### CONFIGURACION DE CAPAS #######################
 
   if (lienzo.esCuadrado()) {
@@ -82,16 +90,17 @@ function setup() {
     capa.crearCaminantes();
   });
 
-  push();
-  colorMode(HSB, 360, 100, 100, 100);
   fondo = loadImage("./data/" + config["fondo"]);
-  pop();
 }
 
 function draw() {
   image(fondo, 0, 0, width, height);
   gestorAmp.actualizar(mic.getLevel());
   amp = gestorAmp.filtrada;
+
+  if (label == "Aplauso") {
+    location.reload();
+  }
 
   capas.forEach((capa) => {
     capa.actualizarCaminantes();
@@ -120,4 +129,12 @@ function getPitch() {
     }
     getPitch();
   });
+}
+
+function gotResult(error, results) {
+  if (error) {
+    console.error(error);
+  }
+
+  label = results[0].label;
 }

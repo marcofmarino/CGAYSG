@@ -35,7 +35,7 @@ let configRectangulares = [
       [6, 10],
       [2, 4],
     ],
-    cantidadCaminantes: [10, 24, 22, 20],
+    cantidadCaminantes: [20, 40, 20, 10],
     colores: [
       [[5, 42, 81]],
       [
