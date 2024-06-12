@@ -8,21 +8,13 @@ class Lienzo {
 
   setup() {}
 
-  // dibujar() {
-  //   push();
-  //   noFill();
-  //   stroke(255);
-  //   rect(this.x, this.y, this.w, this.h);
-  //   pop();
-  // }
-
   estaDentro(x, y) {
     return (
       x > this.x && x < this.x + this.w && y > this.y && y < this.y + this.h
     );
   }
 
-  esRectangular() {}
+  esCuadrado() {}
 }
 
 class RectangularLienzo extends Lienzo {
@@ -36,8 +28,8 @@ class RectangularLienzo extends Lienzo {
     background("#222222");
   }
 
-  esRectangular() {
-    return true;
+  esCuadrado() {
+    return false;
   }
 }
 
@@ -52,7 +44,7 @@ class CuadradoLienzo extends Lienzo {
     background("#222222");
   }
 
-  esRectangular() {
-    return false;
+  esCuadrado() {
+    return true;
   }
 }

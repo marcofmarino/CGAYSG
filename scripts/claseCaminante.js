@@ -18,19 +18,19 @@ class Caminante {
     pop();
   }
 
- mover(variacion) {
-    if(this.x > width){
-      this.x = 0;
-    }
-    if (this.x < 0) {
-      this.x = width;
-    }
-    if(this.y > height){
-      this.y = 0;
-    }
-    if (this.y < 0) {
-      this.y = height;
-    }
+  mover(variacion) {
+    // if (this.x > width) {
+    //   this.x = 0;
+    // }
+    // if (this.x < 0) {
+    //   this.x = width;
+    // }
+    // if (this.y > height) {
+    //   this.y = 0;
+    // }
+    // if (this.y < 0) {
+    //   this.y = height;
+    // }
     this.dir += random(-15 * variacion, 15 * variacion);
     this.x += this.vel * Math.cos(toRad(this.dir));
     this.y += this.vel * Math.sin(toRad(this.dir));

@@ -17,13 +17,18 @@ let audioContext;
 const pitchModel =
   "https://cdn.jsdelivr.net/gh/ml5js/ml5-data-and-models/models/pitch-detection/crepe/";
 
-let c = [];
-let cantidad = 10;
+// let c = [];
+// let cantidad = 15;
 let lienzo;
 let margen = 10;
 let capas = [];
+let config;
 
 function setup() {
+  userStartAudio();
+
+  // ############## CONFIGURACION DEL LIENZO ##########################
+
   if (random(1) < 0.75) {
     lienzo = new RectangularLienzo();
   } else {
@@ -31,18 +36,46 @@ function setup() {
   }
   lienzo.setup();
 
+  // #################### CONFIGURACION DE AUDIO #######################
+
   audioContext = getAudioContext();
   mic = new p5.AudioIn();
   mic.start(startPitch);
 
-  userStartAudio();
-
   gestorAmp = new GestorSenial(AMP_MIN, AMP_MAX);
   gestorFrec = new GestorSenial(FREC_MIN, FREC_MAX);
 
-  capas.push(new CapaFija(10, lienzo.esRectangular(), 15, 0.1));
-  capas.push(new CapaVariable(cantidad, lienzo.esRectangular(), 5));
-  capas.push(new CapaFija(20, lienzo.esRectangular(), 2, 0.4));
+  // #################### CONFIGURACION DE CAPAS #######################
+
+  if (lienzo.esCuadrado()) {
+    config = configCuadrada;
+  } else {
+    config =
+      configRectangulares[round(random(0, configRectangulares.length - 1))];
+  }
+
+  [...Array(config["cant"]).keys()].forEach((index) => {
+    if (config["variacion"][index] == -1) {
+      capas.push(
+        new CapaVariable(
+          config["cantidadCaminantes"][index],
+          config["colores"][index],
+          config["tCaminantes"][index],
+          config["opacidades"][index],
+        ),
+      );
+    } else {
+      capas.push(
+        new CapaFija(
+          config["cantidadCaminantes"][index],
+          config["colores"][index],
+          config["tCaminantes"][index],
+          config["opacidades"][index],
+          config["variacion"][index],
+        ),
+      );
+    }
+  });
 
   capas.forEach((capa) => {
     capa.crearCaminantes();
@@ -67,6 +100,7 @@ function draw() {
 function toRad(degree) {
   return degree * (Math.PI / 180);
 }
+
 function startPitch() {
   pitch = ml5.pitchDetection(pitchModel, audioContext, mic.stream, modelLoaded);
 }

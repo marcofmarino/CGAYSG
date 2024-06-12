@@ -1,8 +1,9 @@
 class Capa {
-  constructor(cantidad, esRectangular, t_) {
-    this.esRectangular = esRectangular;
+  constructor(cantidad, colores, tamanio, opacidad) {
+    this.colores = colores;
     this.cantidad = [...Array(cantidad).keys()];
-    this.t = t_;
+    this.t = tamanio;
+    this.opacidad = opacidad;
     this.caminantes = [];
     this.capa;
   }
@@ -11,7 +12,12 @@ class Capa {
     this.capa = createGraphics(width, height);
 
     this.cantidad.forEach((element) => {
-      let colorCaminante = new Color(this.esRectangular);
+      let colorCaminante = new Color(
+        this.colores[round(random(0, this.colores.length - 1))],
+        this.opacidad,
+      );
+
+      let tamanioCaminante = this.t[round(random(0, this.t.length - 1))];
 
       if (random(0, 100) > 50) {
         this.caminantes.push(
@@ -21,7 +27,7 @@ class Capa {
             random(-15, 15),
             colorCaminante.elColor,
             this.capa,
-            this.t,
+            tamanioCaminante,
           ),
         );
       } else {
@@ -32,7 +38,7 @@ class Capa {
             random(165, 195),
             colorCaminante.elColor,
             this.capa,
-            this.t,
+            tamanioCaminante,
           ),
         );
       }
@@ -45,7 +51,7 @@ class Capa {
             random(75, 105),
             colorCaminante.elColor,
             this.capa,
-            this.t,
+            tamanioCaminante,
           ),
         );
       } else {
@@ -56,7 +62,7 @@ class Capa {
             random(255, 285),
             colorCaminante.elColor,
             this.capa,
-            this.t,
+            tamanioCaminante,
           ),
         );
       }
@@ -67,8 +73,8 @@ class Capa {
 }
 
 class CapaFija extends Capa {
-  constructor(cantidad, esRectangular, t_, variacion) {
-    super(cantidad, esRectangular, t_);
+  constructor(cantidad, colores, tamanio, opacidad, variacion) {
+    super(cantidad, colores, tamanio, opacidad);
     this.variacion = variacion;
   }
 
@@ -77,13 +83,13 @@ class CapaFija extends Capa {
       caminante.dibujar();
       caminante.mover(this.variacion);
     });
-    image(this.capa, -20, -20, width + 40, height + 40);
+    image(this.capa, 0, 0);
   }
 }
 
 class CapaVariable extends Capa {
-  constructor(cantidad, esRectangular, t_) {
-    super(cantidad, esRectangular, t_);
+  constructor(cantidad, colores, tamanio, opacidad) {
+    super(cantidad, colores, tamanio, opacidad);
   }
 
   actualizarCaminantes() {
