@@ -61,11 +61,6 @@ function draw() {
   capas.forEach((capa) => {
     capa.actualizarCaminantes();
   });
-  push();
-  fill("#22222222");
-  noStroke();
-  rect(0, 0, 300, 100);
-  pop();
 }
 
 // ##################### FUNCIONES ######################
