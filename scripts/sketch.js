@@ -1,3 +1,7 @@
+// Computacion Grafica Aplicada y Sistemas Generativos - Facultad de Artes - UNLP
+// TP1
+// Lombar, Emma - Marino, Marco - Medina, Juan Gabriel - Moirano, Julia
+//
 // SONIDO
 let AMP_MIN = 0.01;
 let AMP_MAX = 0.3;
@@ -17,6 +21,7 @@ let audioContext;
 const pitchModel =
   "https://cdn.jsdelivr.net/gh/ml5js/ml5-data-and-models/models/pitch-detection/crepe/";
 
+// ################# Teachable Machine ##################
 let classifier;
 const options = { probabilityThreshold: 0.9 };
 let label;
@@ -63,6 +68,7 @@ function setup() {
       configRectangulares[round(random(0, configRectangulares.length - 1))];
   }
 
+  // Cargar las capas dependiendo de la configuración de la obra
   [...Array(config["cant"]).keys()].forEach((index) => {
     if (config["variacion"][index] == -1) {
       capas.push(

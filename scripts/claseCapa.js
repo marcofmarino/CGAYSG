@@ -12,13 +12,17 @@ class Capa {
     this.capa = createGraphics(width, height);
 
     this.cantidad.forEach((element) => {
+      //Determinar el color del caminante
       let colorCaminante = new Color(
         this.colores[round(random(0, this.colores.length - 1))],
         this.opacidad,
       );
 
+      // Determinar el tamanio del caminante
       let tamanioCaminante = this.t[round(random(0, this.t.length - 1))];
 
+      // Caminante(x, y, dir, color, capa, tamanio)
+      // Hacer aparecer a los caminantes desde todas direcciones del lienzo
       if (random(0, 100) > 50) {
         this.caminantes.push(
           new Caminante(
@@ -93,9 +97,11 @@ class CapaVariable extends Capa {
   }
 
   actualizarCaminantes() {
+    // Solamente actualiza los caminantes con variación por voz si se detecta sonido
     if (amp > 0.2) {
       this.caminantes.forEach((caminante) => {
         caminante.dibujar();
+        // mapear la frecuencia para generar siempre un mínimo temblor
         caminante.mover(map(frec, 0, 1, 0.2, 1));
       });
     }

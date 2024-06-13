@@ -1,3 +1,12 @@
+// ######## CONFIGURACIONES DE LAS OBRAS ###################
+// cant => Cantidad de capas para la obra
+// variacion => Indica que tan temblorosos son los caminantes que se mueven solos y -1 indica que es una capa a mover con la voz
+// opacidades => La opacidad de los caminantes de esa capa
+// tCaminantes => Determina un rango de tamanios para los caminantes de una capa
+// cantidadCaminantes => Cantidad de caminanntes por capa
+// colores => Los distintos posibles colores que puede tener los caminantes, separados por capas
+// fondo => El nombre del archivo del fondo para cada obra
+
 let configCuadrada = {
   cant: 4,
   variacion: [0.3, -1, 0.1, -1],
