@@ -1,18 +1,20 @@
 class Capa {
   constructor(cantidad, colores, tamanio, opacidad) {
     this.colores = colores;
-    this.cantidad = [...Array(cantidad).keys()];
+    // this.cantidad = [...Array(cantidad).keys()];
+    this.cantidad = cantidad;
     this.t = tamanio;
     this.opacidad = opacidad;
     this.caminantes = [];
     this.capa;
   }
 
-  crearCaminantes(lienzo) {
+  // crearCaminantes(lienzo) {
+  crearCaminantes() {
     this.capa = createGraphics(width, height);
 
-    this.cantidad.forEach((element) => {
-      //Determinar el color del caminante
+    for (let index = 0; index < this.cantidad; index++) {
+      //   //Determinar el color del caminante
       let colorCaminante = new Color(
         this.colores[round(random(0, this.colores.length - 1))],
         this.opacidad,
@@ -70,7 +72,7 @@ class Capa {
           ),
         );
       }
-    });
+    }
   }
 
   actualizarCaminantes() {}
@@ -83,10 +85,10 @@ class CapaFija extends Capa {
   }
 
   actualizarCaminantes() {
-    this.caminantes.forEach((caminante) => {
-      caminante.dibujar();
-      caminante.mover(this.variacion);
-    });
+    for (let index = 0; index < this.caminantes.length; index++) {
+      this.caminantes[index].dibujar();
+      this.caminantes[index].mover(this.variacion);
+    }
     image(this.capa, 0, 0);
   }
 }
@@ -98,12 +100,11 @@ class CapaVariable extends Capa {
 
   actualizarCaminantes() {
     // Solamente actualiza los caminantes con variación por voz si se detecta sonido
-    if (amp > 0.2) {
-      this.caminantes.forEach((caminante) => {
-        caminante.dibujar();
-        // mapear la frecuencia para generar siempre un mínimo temblor
-        caminante.mover(map(frec, 0, 1, 0.2, 1));
-      });
+    if (amp > 0.1) {
+      for (let index = 0; index < this.caminantes.length; index++) {
+        this.caminantes[index].dibujar();
+        this.caminantes[index].mover(map(frec, 0, 1, 0.2, 1));
+      }
     }
     image(this.capa, 0, 0);
   }

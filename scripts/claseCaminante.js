@@ -6,7 +6,8 @@ class Caminante {
     this.vel = 3;
     this.dir = dir;
     this.elColor = color_;
-    this.pincelada = loadImage("data/pincelada.png");
+    // this.pincelada = loadImage("data/pincelada.png");
+    // this.pincelada = pincelada;
     this.capa = capa_;
   }
 
@@ -14,7 +15,11 @@ class Caminante {
     push();
     this.capa.imageMode(CENTER);
     this.capa.tint(this.elColor);
-    this.capa.image(this.pincelada, this.x, this.y, this.t, this.t);
+    this.capa.image(pincelada, this.x, this.y, this.t, this.t);
+    // this.capa.colorMode(HSB, 360, 100, 100, 100);
+    // this.capa.fill(this.elColor);
+    // this.capa.noStroke();
+    // this.capa.ellipse(this.x, this.y, this.t, this.t);
     pop();
   }
 

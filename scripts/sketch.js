@@ -33,8 +33,11 @@ let capas = [];
 let config;
 let fondo;
 
+let pincelada;
+
 function preload() {
   classifier = ml5.soundClassifier(soundModel + "model.json", options);
+  pincelada = loadImage("data/pincelada.png");
 }
 
 function setup() {
@@ -69,7 +72,7 @@ function setup() {
   }
 
   // Cargar las capas dependiendo de la configuración de la obra
-  [...Array(config["cant"]).keys()].forEach((index) => {
+  for (let index = 0; index < config["cant"]; index++) {
     if (config["variacion"][index] == -1) {
       capas.push(
         new CapaVariable(
@@ -90,11 +93,11 @@ function setup() {
         ),
       );
     }
-  });
+  }
 
-  capas.forEach((capa) => {
-    capa.crearCaminantes();
-  });
+  for (let index = 0; index < capas.length; index++) {
+    capas[index].crearCaminantes();
+  }
 
   fondo = loadImage("./data/" + config["fondo"]);
 }
@@ -108,9 +111,12 @@ function draw() {
     location.reload();
   }
 
-  capas.forEach((capa) => {
-    capa.actualizarCaminantes();
-  });
+  for (let index = 0; index < capas.length; index++) {
+    capas[index].actualizarCaminantes();
+  }
+  // capas.forEach((capa) => {
+  //   capa.actualizarCaminantes();
+  // });
 }
 
 // ##################### FUNCIONES ######################
