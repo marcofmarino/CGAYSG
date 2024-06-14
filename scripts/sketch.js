@@ -28,7 +28,6 @@ let label;
 let soundModel = "https://teachablemachine.withgoogle.com/models/qxIkimWln/";
 
 let lienzo;
-let margen = 10;
 let capas = [];
 let config;
 let fondo;
@@ -42,16 +41,6 @@ function preload() {
 
 function setup() {
   userStartAudio();
-
-  // ############## CONFIGURACION DEL LIENZO ##########################
-
-  if (random(1) < 0.75) {
-    lienzo = new RectangularLienzo();
-  } else {
-    lienzo = new CuadradoLienzo();
-  }
-  lienzo.setup();
-
   // #################### CONFIGURACION DE AUDIO #######################
 
   audioContext = getAudioContext();
@@ -62,6 +51,15 @@ function setup() {
   gestorFrec = new GestorSenial(FREC_MIN, FREC_MAX);
 
   classifier.classify(gotResult);
+  // ############## CONFIGURACION DEL LIENZO ##########################
+
+  if (random(1) < 0.75) {
+    lienzo = new RectangularLienzo();
+  } else {
+    lienzo = new CuadradoLienzo();
+  }
+  lienzo.setup();
+
   // #################### CONFIGURACION DE CAPAS #######################
 
   if (lienzo.esCuadrado()) {
@@ -114,9 +112,6 @@ function draw() {
   for (let index = 0; index < capas.length; index++) {
     capas[index].actualizarCaminantes();
   }
-  // capas.forEach((capa) => {
-  //   capa.actualizarCaminantes();
-  // });
 }
 
 // ##################### FUNCIONES ######################

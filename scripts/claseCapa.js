@@ -13,6 +13,9 @@ class Capa {
   crearCaminantes() {
     this.capa = createGraphics(width, height);
 
+    let pasoVertical = 0;
+    let pasoHorizontal = 0;
+
     for (let index = 0; index < this.cantidad; index++) {
       //   //Determinar el color del caminante
       let colorCaminante = new Color(
@@ -23,14 +26,17 @@ class Capa {
       // Determinar el tamanio del caminante
       let tamanioCaminante = this.t[round(random(0, this.t.length - 1))];
 
+      pasoVertical += round(height / this.cantidad);
+      pasoHorizontal += round(width / this.cantidad);
+
       // Caminante(x, y, dir, color, capa, tamanio)
       // Hacer aparecer a los caminantes desde todas direcciones del lienzo
       if (random(0, 100) > 50) {
         this.caminantes.push(
           new Caminante(
             0,
-            random(0, height),
-            random(-15, 15),
+            pasoVertical, // random(0, height),
+            random(-5, 5),
             colorCaminante.elColor,
             this.capa,
             tamanioCaminante,
@@ -40,8 +46,8 @@ class Capa {
         this.caminantes.push(
           new Caminante(
             width,
-            random(0, height),
-            random(165, 195),
+            pasoVertical, // random(0, height),
+            random(175, 185),
             colorCaminante.elColor,
             this.capa,
             tamanioCaminante,
@@ -52,9 +58,9 @@ class Capa {
       if (random(0, 100) > 50) {
         this.caminantes.push(
           new Caminante(
-            random(0, width),
+            pasoHorizontal, // random(0, width),
             0,
-            random(75, 105),
+            random(85, 95),
             colorCaminante.elColor,
             this.capa,
             tamanioCaminante,
@@ -63,9 +69,9 @@ class Capa {
       } else {
         this.caminantes.push(
           new Caminante(
-            random(0, width),
+            pasoHorizontal, // random(0, width),
             height,
-            random(255, 285),
+            random(265, 285),
             colorCaminante.elColor,
             this.capa,
             tamanioCaminante,

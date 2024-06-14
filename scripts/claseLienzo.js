@@ -9,9 +9,7 @@ class Lienzo {
   setup() {}
 
   estaDentro(x, y) {
-    return (
-      x > this.x && x < this.x + this.w && y > this.y && y < this.y + this.h
-    );
+    return x > 0 && x < width && y > 0 && y < height;
   }
 
   esCuadrado() {}
@@ -19,13 +17,9 @@ class Lienzo {
 
 class RectangularLienzo extends Lienzo {
   setup() {
-    this.h = windowHeight - 2 * margen;
+    this.h = windowHeight - 2;
     this.w = this.h * 0.8;
-    this.x = (windowWidth - this.w) / 2;
-    this.y = margen;
-    super.setup();
     createCanvas(this.w, this.h);
-    background("#222222");
   }
 
   esCuadrado() {
@@ -35,13 +29,9 @@ class RectangularLienzo extends Lienzo {
 
 class CuadradoLienzo extends Lienzo {
   setup() {
-    this.h = windowHeight - 2 * margen;
+    this.h = windowHeight - 2;
     this.w = this.h;
-    this.x = (windowWidth - this.w) / 2;
-    this.y = margen;
-    super.setup();
     createCanvas(this.w, this.h);
-    background("#222222");
   }
 
   esCuadrado() {

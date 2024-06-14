@@ -9,21 +9,26 @@
 
 let configCuadrada = {
   cant: 4,
-  variacion: [0.2, -1, 0.1, -1],
-  opacidades: [50, 80, 80, 90],
+  variacion: [0.2, -1, 0.05, -1],
+  opacidades: [40, 60, 40, 50],
   tCaminantes: [
     [22, 24],
     [18, 20],
     [18, 20],
     [3, 5],
   ],
-  cantidadCaminantes: [30, 20, 20, 32],
+  cantidadCaminantes: [30, 20, 20, 20],
   colores: [
     [
       [86, 57, 53],
       [228, 58, 39],
     ],
-    [[356, 94, 71]],
+    [
+      [356, 94, 71],
+      [356, 94, 71],
+      [86, 57, 53],
+      [228, 58, 39],
+    ],
     [
       [355, 51, 78],
       [355, 51, 78],
@@ -40,7 +45,7 @@ let configCuadrada = {
 let configRectangulares = [
   {
     cant: 4,
-    variacion: [0.1, 0.2, -1, 0.5],
+    variacion: [0.05, 0.17, -1, 0.5],
     opacidades: [70, 80, 80, 90],
     tCaminantes: [
       [12, 15],
@@ -48,18 +53,22 @@ let configRectangulares = [
       [13, 16],
       [2, 4],
     ],
-    cantidadCaminantes: [30, 30, 10, 10],
+    cantidadCaminantes: [35, 35, 8, 10],
     colores: [
       [
         [5, 42, 81],
         [29, 16, 94],
       ],
       [
+        [5, 42, 81],
         [29, 16, 94],
         [348, 27, 15],
+        [242, 47, 29],
+        [209, 67, 78],
       ],
       [
         [242, 47, 29],
+        [209, 67, 78],
         [209, 67, 78],
       ],
       [
@@ -72,7 +81,7 @@ let configRectangulares = [
   },
   {
     cant: 4,
-    variacion: [0.1, 0.2, -1, 0.5],
+    variacion: [0.1, 0.13, -1, 0.5],
     opacidades: [50, 70, 80, 50],
     tCaminantes: [
       [18, 22],
@@ -80,12 +89,16 @@ let configRectangulares = [
       [10, 13],
       [2, 4],
     ],
-    cantidadCaminantes: [30, 35, 15, 25],
+    cantidadCaminantes: [30, 50, 8, 25],
     colores: [
       [[47, 80, 85]],
       [
         [360, 88, 67],
+        [360, 88, 67],
+        [14, 45, 22],
         [11, 72, 74],
+        [11, 72, 74],
+        [162, 52, 33],
       ],
       [
         [14, 45, 22],
