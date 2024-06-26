@@ -120,9 +120,11 @@ function draw() {
       capaSalpicaduras.imageMode(CENTER);
       capaSalpicaduras.colorMode(HSB, 360, 100, 100, 100);
       capaSalpicaduras.tint(237, 21, 34);
-      capaSalpicaduras.translate(random(width), random(height));
-      capaSalpicaduras.rotate(random(360));
-      capaSalpicaduras.image(salpicadura, 0, 0);
+      for (let index = 0; index < 3; index++) {
+        capaSalpicaduras.translate(random(width), random(height));
+        capaSalpicaduras.rotate(random(360));
+        capaSalpicaduras.image(salpicadura, 0, 0);
+      }
       label = "";
       cantSalpicaduras++;
       pop();
