@@ -25,7 +25,7 @@ const pitchModel =
 let classifier;
 const options = { probabilityThreshold: 0.9 };
 let label;
-let soundModel = "https://teachablemachine.withgoogle.com/models/qxIkimWln/";
+let soundModel = "https://teachablemachine.withgoogle.com/models/4cvBxP6YL/";
 
 let lienzo;
 let capas = [];
@@ -34,9 +34,15 @@ let fondo;
 
 let pincelada;
 
+let capaSalpicaduras;
+let salpicadura;
+let cantSalpicaduras = 0;
+let MAX_SALPICADURAS = 10;
+
 function preload() {
   classifier = ml5.soundClassifier(soundModel + "model.json", options);
   pincelada = loadImage("data/pincelada.png");
+  salpicadura = loadImage("data/salpicadura1.png");
 }
 
 function setup() {
@@ -98,6 +104,7 @@ function setup() {
   }
 
   fondo = loadImage("./data/" + config["fondo"]);
+  capaSalpicaduras = createGraphics(width, height);
 }
 
 function draw() {
@@ -107,11 +114,25 @@ function draw() {
 
   if (label == "Aplauso") {
     location.reload();
+  } else if (label == "Achis") {
+    if (cantSalpicaduras < MAX_SALPICADURAS) {
+      push();
+      capaSalpicaduras.imageMode(CENTER);
+      capaSalpicaduras.colorMode(HSB, 360, 100, 100, 100);
+      capaSalpicaduras.tint(237, 21, 34);
+      capaSalpicaduras.translate(random(width), random(height));
+      capaSalpicaduras.rotate(random(360));
+      capaSalpicaduras.image(salpicadura, 0, 0);
+      label = "";
+      cantSalpicaduras++;
+      pop();
+    }
   }
 
   for (let index = 0; index < capas.length; index++) {
     capas[index].actualizarCaminantes();
   }
+  image(capaSalpicaduras, 0, 0);
 }
 
 // ##################### FUNCIONES ######################
