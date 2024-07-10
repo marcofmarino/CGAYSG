@@ -106,7 +106,7 @@ class CapaVariable extends Capa {
 
   actualizarCaminantes() {
     // Solamente actualiza los caminantes con variación por voz si se detecta sonido
-    if (amp > 0.1) {
+    if (amp > AMP_MIN) {
       for (let index = 0; index < this.caminantes.length; index++) {
         this.caminantes[index].dibujar();
         this.caminantes[index].mover(map(frec, 0, 1, 0.2, 1));

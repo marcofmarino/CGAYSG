@@ -7,42 +7,7 @@
 // colores => Los distintos posibles colores que puede tener los caminantes, separados por capas
 // fondo => El nombre del archivo del fondo para cada obra
 
-let configCuadrada = {
-  cant: 4,
-  variacion: [0.2, -1, 0.05, -1],
-  opacidades: [40, 60, 40, 50],
-  tCaminantes: [
-    [22, 24],
-    [18, 20],
-    [18, 20],
-    [3, 5],
-  ],
-  cantidadCaminantes: [30, 20, 20, 20],
-  colores: [
-    [
-      [86, 57, 53],
-      [228, 58, 39],
-    ],
-    [
-      [356, 94, 71],
-      [356, 94, 71],
-      [86, 57, 53],
-      [228, 58, 39],
-    ],
-    [
-      [355, 51, 78],
-      [355, 51, 78],
-      [356, 94, 71],
-    ],
-    [
-      [191, 79, 73],
-      [49, 94, 91],
-    ],
-  ],
-  fondo: "fondo3.png",
-};
-
-let configRectangulares = [
+let configuraciones = [
   {
     cant: 4,
     variacion: [0.05, 0.17, -1, 0.5],
@@ -110,7 +75,7 @@ let configRectangulares = [
   },
   {
     cant: 3,
-    variacion: [0.6, -1, 0.5],
+    variacion: [0.6, -1, 0.5, -2],
     opacidades: [70, 40, 40],
     tCaminantes: [
       [16, 18],
@@ -131,5 +96,39 @@ let configRectangulares = [
       ],
     ],
     fondo: "fondo1.png",
+  },
+  {
+    cant: 4,
+    variacion: [0.2, -1, 0.05, -1],
+    opacidades: [40, 60, 40, 50],
+    tCaminantes: [
+      [22, 24],
+      [18, 20],
+      [18, 20],
+      [3, 5],
+    ],
+    cantidadCaminantes: [30, 20, 20, 20],
+    colores: [
+      [
+        [86, 57, 53],
+        [228, 58, 39],
+      ],
+      [
+        [356, 94, 71],
+        [356, 94, 71],
+        [86, 57, 53],
+        [228, 58, 39],
+      ],
+      [
+        [355, 51, 78],
+        [355, 51, 78],
+        [356, 94, 71],
+      ],
+      [
+        [191, 79, 73],
+        [49, 94, 91],
+      ],
+    ],
+    fondo: "fondo3.png",
   },
 ];

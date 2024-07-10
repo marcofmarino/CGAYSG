@@ -47,6 +47,7 @@ function preload() {
 
 function setup() {
   userStartAudio();
+
   // #################### CONFIGURACION DE AUDIO #######################
 
   audioContext = getAudioContext();
@@ -68,34 +69,35 @@ function setup() {
 
   // #################### CONFIGURACION DE CAPAS #######################
 
-  if (lienzo.esCuadrado()) {
-    config = configCuadrada;
-  } else {
-    config =
-      configRectangulares[round(random(0, configRectangulares.length - 1))];
-  }
+  let indices = [
+    round(random(configuraciones.length - 1)),
+    round(random(configuraciones.length - 1)),
+  ];
 
-  // Cargar las capas dependiendo de la configuración de la obra
-  for (let index = 0; index < config["cant"]; index++) {
-    if (config["variacion"][index] == -1) {
-      capas.push(
-        new CapaVariable(
-          config["cantidadCaminantes"][index],
-          config["colores"][index],
-          config["tCaminantes"][index],
-          config["opacidades"][index],
-        ),
-      );
-    } else {
-      capas.push(
-        new CapaFija(
-          config["cantidadCaminantes"][index],
-          config["colores"][index],
-          config["tCaminantes"][index],
-          config["opacidades"][index],
-          config["variacion"][index],
-        ),
-      );
+  fondo = loadImage("./data/" + configuraciones[indices[1]]["fondo"]);
+
+  for (let index = 0; index < configuraciones[indices[0]]["cant"]; index++) {
+    if (configuraciones[indices[1]]["variacion"][index] !== -2) {
+      if (configuraciones[indices[1]]["variacion"][index] == -1) {
+        capas.push(
+          new CapaVariable(
+            configuraciones[indices[0]]["cantidadCaminantes"][index],
+            configuraciones[indices[1]]["colores"][index],
+            configuraciones[indices[0]]["tCaminantes"][index],
+            configuraciones[indices[1]]["opacidades"][index],
+          ),
+        );
+      } else {
+        capas.push(
+          new CapaFija(
+            configuraciones[indices[0]]["cantidadCaminantes"][index],
+            configuraciones[indices[1]]["colores"][index],
+            configuraciones[indices[0]]["tCaminantes"][index],
+            configuraciones[indices[1]]["opacidades"][index],
+            configuraciones[indices[0]]["variacion"][index],
+          ),
+        );
+      }
     }
   }
 
@@ -103,7 +105,6 @@ function setup() {
     capas[index].crearCaminantes();
   }
 
-  fondo = loadImage("./data/" + config["fondo"]);
   capaSalpicaduras = createGraphics(width, height);
 }
 
@@ -112,23 +113,28 @@ function draw() {
   gestorAmp.actualizar(mic.getLevel());
   amp = gestorAmp.filtrada;
 
-  if (label == "Aplauso") {
-    location.reload();
-  } else if (label == "Achis") {
+  if (label == "Achis") {
     if (cantSalpicaduras < MAX_SALPICADURAS) {
       push();
-      capaSalpicaduras.imageMode(CENTER);
+      capaSalpicaduras.imageMode(CENTER, CENTER);
       capaSalpicaduras.colorMode(HSB, 360, 100, 100, 100);
       capaSalpicaduras.tint(237, 21, 34);
       for (let index = 0; index < 3; index++) {
-        capaSalpicaduras.translate(random(width), random(height));
+        push();
         capaSalpicaduras.rotate(random(360));
+        capaSalpicaduras.translate(
+          round(random(width)) - 50,
+          round(random(height)) - 50,
+        );
         capaSalpicaduras.image(salpicadura, 0, 0);
+        pop();
       }
       label = "";
       cantSalpicaduras++;
       pop();
     }
+  } else if (label == "Aplauso") {
+    location.reload();
   }
 
   for (let index = 0; index < capas.length; index++) {
