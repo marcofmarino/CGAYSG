@@ -113,7 +113,7 @@ function draw() {
   gestorAmp.actualizar(mic.getLevel());
   amp = gestorAmp.filtrada;
 
-  if (label == "Achis") {
+  if (label == "Aplauso") {
     if (cantSalpicaduras < MAX_SALPICADURAS) {
       push();
       capaSalpicaduras.imageMode(CENTER, CENTER);
@@ -129,11 +129,10 @@ function draw() {
         capaSalpicaduras.image(salpicadura, 0, 0);
         pop();
       }
-      label = "";
       cantSalpicaduras++;
       pop();
     }
-  } else if (label == "Aplauso") {
+  } else if (label == "Achis") {
     location.reload();
   }
 
